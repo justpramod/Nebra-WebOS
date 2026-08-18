@@ -10,6 +10,8 @@ class Opcode(Enum):
     ADD = auto()
     HALT = auto()
     SUBTRACT = auto()
+    JMP = auto()  # unconditional jump
+    JZ = auto()  # jump on zero
 
 
 @dataclass()
