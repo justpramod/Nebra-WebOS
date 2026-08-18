@@ -1,0 +1,33 @@
+#stop git from tracking the extenal libs and cache
+**/.venv/
+**/.uv/
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+
+# =========================================================================
+# Next.js Frontend
+# =========================================================================
+# Next.js build output
+**/frontend/.next/
+**/frontend/out/
+
+# Node modules (external frontend libraries)
+**/frontend/node_modules/
+
+# Frontend testing, logs, and caches
+**/frontend/.pnpm-debug.log*
+**/frontend/yarn-error.log*
+**/frontend/.eslintcache
+
+# =========================================================================
+# Environment Variables & Secrets (CRITICAL)
+# =========================================================================
+# This blocks local secret files in both frontend and backend
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+**/.env*.local
