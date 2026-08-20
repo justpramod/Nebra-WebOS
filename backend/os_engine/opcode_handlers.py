@@ -60,4 +60,6 @@ OPCODE_HANDLERS = {
     Opcode.ADD: handle_add,
     Opcode.HALT: handle_halt,
     Opcode.SUBTRACT: handle_subtract,
+    Opcode.JMP: handle_jmp,
+    Opcode.JZ: handle_jz,
 }
