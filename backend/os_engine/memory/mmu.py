@@ -3,17 +3,14 @@ A hardware which is responsible for translating virtual memory address to physic
 also enforces the protection of memory by checking flag rules from page table entry.
 """
 
+from os_engine.cpu import CPU, CPUMode
 from os_engine.memory.pte import PTE
 from os_engine.memory.ram import RAM
 
 
 class MMU:
     @staticmethod
-    def translate(
-        virtual_address: int,
-        page_table_pointer: int,
-        ram: RAM,
-    ):
+    def translate(virtual_address: int, cpu: CPU, ram: RAM, write_access: bool):
         # page_table_pointer points dirextly to the RAM's physical address
 
         # width of each page table entry is 3 bytes
@@ -26,18 +23,20 @@ class MMU:
         )  # bitwise right shift to get first 20 bits
 
         mask = 111111111111  # 12 1's or 0xFFF
-        page_offset = virtual_address & mask  # bitwise and to get last 12 bits
+        page_offset: int = virtual_address & mask  # bitwise and to get last 12 bits
 
         # fetch the current page table entry from RAM
         # construct page_table_entry_address
 
-        page_table_entry_address = page_table_pointer + virtual_page_number * pte_width
+        page_table_entry_address = (
+            cpu.page_table_pointer + virtual_page_number * pte_width
+        )
 
         # read the 3 bytes containing pte from RAM.
 
-        byte_1 = ram.read(address=page_table_entry_address)
-        byte_2 = ram.read(address=page_table_entry_address + 1)
-        byte_3 = ram.read(address=page_table_entry_address + 2)
+        byte_1: int = ram.read(address=page_table_entry_address)
+        byte_2: int = ram.read(address=page_table_entry_address + 1)
+        byte_3: int = ram.read(address=page_table_entry_address + 2)
 
         # construct pte object
         pte: PTE = PTE(byte_1, byte_2, byte_3)
@@ -48,5 +47,13 @@ class MMU:
             # add custom error later
             raise Exception("Page fault : virtual page not mapped.")
 
-        physical_memory_address = pte.physical_frame_number << 12 | page_offset
+        if not pte.user_kernel_flag and cpu.mode == CPUMode.USER:
+            # page fault only kernel can access
+            raise Exception("Page fault : Kernel level access required.")
+
+        if write_access and not pte.read_write_flag:
+            # page failt, only read allowed.
+            raise Exception("Page fault: Only read allowed.")
+
+        physical_memory_address: int = pte.physical_frame_number << 12 | page_offset
         return physical_memory_address
