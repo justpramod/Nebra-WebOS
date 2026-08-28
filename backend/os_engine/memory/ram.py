@@ -6,7 +6,7 @@ class RAM:
     ram_size: int = 1024 * 1024  # 1 MB ram
     ram_bytearray: bytearray = field(init=False)
 
-    #allocate the bytearray after initialization to create bytearray using the ram_size
+    # allocate the bytearray after initialization to create bytearray using the ram_size
     def __post_init__(self):
         self.ram_bytearray = bytearray(self.ram_size)
 
