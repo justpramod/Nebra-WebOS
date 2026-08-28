@@ -31,6 +31,6 @@ class PTE:
 
         self.physical_frame_number = pte_data >> 4
 
-        self.present_bit = bool(flag_bits >> 3)
+        self.present_flag = bool(flag_bits >> 3)
         self.read_write_flag = bool((flag_bits >> 2) & 1)
         self.user_kernel_flag = bool((flag_bits >> 1) & 1)
