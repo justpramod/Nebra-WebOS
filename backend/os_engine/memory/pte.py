@@ -20,10 +20,17 @@ total bytes: 3 bytes -> 24 bits
 
 
 class PTE:
-    def __init__(self, byte_1: str, byte_2: str, byte_3: str) -> None:
-        pte_data = byte_1 + byte_2 + byte_3
+    def __init__(self, byte_1: int, byte_2: int, byte_3: int) -> None:
+        pte_data = (
+            (byte_1 << 16) | (byte_2 << 8) | byte_3
+        )  # left shift and combine with bitwise OR
 
-        self.physical_page_number = pte_data[:20]
-        self.present_bit = pte_data[20]
-        self.read_write_flag = pte_data[21]
-        self.user_kernel_flag = pte_data[22]
+        flag_bits = (
+            pte_data & 0xF
+        )  # masking with 1111, so only the last 4 bits are preserved
+
+        self.physical_frame_number = pte_data >> 4
+
+        self.present_bit = bool(flag_bits >> 3)
+        self.read_write_flag = bool((flag_bits >> 2) & 1)
+        self.user_kernel_flag = bool((flag_bits >> 1) & 1)
