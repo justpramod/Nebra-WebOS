@@ -29,7 +29,7 @@ class MMU:
         # construct page_table_entry_address
 
         page_table_entry_address = (
-            cpu.page_table_pointer + (virtual_page_number - 1) * pte_width
+            cpu.page_table_pointer + (virtual_page_number) * pte_width
         )
 
         # read the 3 bytes containing pte from RAM.
