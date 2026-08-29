@@ -28,11 +28,16 @@ class MemoryRequest:
         return byte_read
 
     @staticmethod
-    def write(virtual_address: int, cpu: CPU, ram: RAM, byte_to_write: int):
+    def write(
+        virtual_address: int,
+        cpu: CPU,
+        ram: RAM,
+        byte_to_write: int,
+    ):
         # get the physical memory address from the virtual_address
 
         physical_address = MMU.translate(
-            virtual_address=virtual_address, cpu=cpu, ram=ram, write_access=False
+            virtual_address=virtual_address, cpu=cpu, ram=ram, write_access=True
         )
 
         # store the byte to the ram physical address
