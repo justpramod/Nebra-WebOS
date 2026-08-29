@@ -74,16 +74,13 @@ class PTE:
 
         self._initialize_entries_from_block(pte_data_block)
 
-
-
-    def get_pte_bytes(self)-> list[int]:
+    def get_pte_bytes(self) -> list[int]:
         if self.pte_data_block:
-            byte_1 :int = (self.pte_data_block >> 16) & 0xFF
-            byte_2 :int = ( self.pte_data_block >> 8) >> 0xFF
-            byte_3 :int = self.pte_data_block & 0xFF
+            byte_1: int = (self.pte_data_block >> 16) & 0xFF
+            byte_2: int = (self.pte_data_block >> 8) & 0xFF
+            byte_3: int = self.pte_data_block & 0xFF
 
             return [byte_1, byte_2, byte_3]
 
-        else :
+        else:
             raise Exception("PTE block values are not initialized.")
-
