@@ -29,7 +29,7 @@ class MMU:
         # construct page_table_entry_address
 
         page_table_entry_address = (
-            cpu.page_table_pointer + virtual_page_number * pte_width
+            cpu.page_table_pointer + (virtual_page_number - 1) * pte_width
         )
 
         # read the 3 bytes containing pte from RAM.
@@ -39,7 +39,8 @@ class MMU:
         byte_3: int = ram.read(address=page_table_entry_address + 2)
 
         # construct pte object
-        pte: PTE = PTE(byte_1, byte_2, byte_3)
+        pte: PTE = PTE()
+        pte.construct_from_bytes(byte_1, byte_2, byte_3)
 
         # check perissions
         if not pte.present_flag:
