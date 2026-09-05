@@ -3,7 +3,7 @@ from enum import Enum, auto
 
 from cpu_architecture.opcode_handlers import OPCODE_HANDLERS
 
-from os_engine.process import Process
+from os_engine.process.model import Process
 
 
 @dataclass()

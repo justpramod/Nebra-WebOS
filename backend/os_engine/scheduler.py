@@ -1,7 +1,7 @@
 from collections import deque
 from dataclasses import dataclass, field
 
-from os_engine.process import Process
+from os_engine.process.model import Process
 
 
 @dataclass()

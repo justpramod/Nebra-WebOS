@@ -1,7 +1,7 @@
 from cpu_architecture.isa import Opcode
 
 from os_engine.cpu_architecture.utils.set_cpu_flags import set_cpu_arithmetic_flags
-from os_engine.process import ProcessState
+from os_engine.process.model import ProcessState
 
 MASK = 0xFFFFFFFF  # any value written to register needs to be maske to ensure it is 32 bit value.
 

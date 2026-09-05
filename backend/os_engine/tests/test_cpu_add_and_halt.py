@@ -1,6 +1,6 @@
-from os_engine.cpu import CPU
-from os_engine.isa import Instruction, Opcode
-from os_engine.process import Process, ProcessState
+from os_engine.cpu_architecture.cpu import CPU
+from os_engine.cpu_architecture.isa import Instruction, Opcode
+from os_engine.process.model import Process, ProcessState
 
 
 def test_cpu_add_and_halt():
@@ -15,7 +15,7 @@ def test_cpu_add_and_halt():
         ],
     )
 
-    cpu = CPU()
+    cpu = CPU(0)
     # restore process values, done in kernel mode
     cpu.program_counter = proc.saved_program_counter_value
     cpu.registers = proc.saved_register_values.copy()
