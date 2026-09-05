@@ -19,7 +19,6 @@ total bytes: 3 bytes -> 24 bits
 """
 
 from dataclasses import dataclass
-from sys import executable
 
 
 @dataclass()
@@ -63,7 +62,7 @@ class PTE:
         present_flag: bool,
         read_write_flag: bool,
         user_kernel_flag: bool,
-        executable_flag:bool
+        executable_flag: bool,
     ):
         present_flag_bit: int = 1 if present_flag else 0
 
@@ -71,7 +70,7 @@ class PTE:
 
         user_kernel_flag_bit: int = 1 if user_kernel_flag else 0
 
-        executable_flag_bit :int = 1 if executable_flag else 0
+        executable_flag_bit: int = 1 if executable_flag else 0
 
         pte_data_block = physical_frame_number << 4
         pte_data_block |= present_flag_bit << 3

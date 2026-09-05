@@ -2,7 +2,6 @@
 - commands that CPU understands.
 """
 
-from dataclasses import dataclass
 from enum import IntEnum
 
 
@@ -26,11 +25,9 @@ class Instruction:
     reg_2-> 5 bits (32bit register) = source
     reg_3/immediate/offset/unused -> 16 bits = load immediate values, offset for things like arrays or empty.
 
-
     instead of having multiple formats like real system.
     in this architecture, the opcode handler will decide if the last 16 bits is a register, immediate value or offset.
     This lets us have 3 register system instead of 2 which makes the compilation easier.
-
     """
 
     # opcode: Opcode | None = None

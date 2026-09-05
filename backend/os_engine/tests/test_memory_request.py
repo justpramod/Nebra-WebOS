@@ -22,14 +22,15 @@ def test_memory_request():
         byte_1=0x00, byte_2=0x06, byte_3=0x4A
     )  # frame number= 100, flags= 1010-> present,read only, user access
 
-    (
-        pte2.construct_from_data_entries(
-            physical_frame_number=0x00065,
-            present_flag=True,
-            read_write_flag=True,
-            user_kernel_flag=False,
-        ),
-    )  # frame number = 101, flags 1100 ->present, read/write, kernel only
+    pte2.construct_from_data_entries(
+        physical_frame_number=0x00065,
+        present_flag=True,
+        read_write_flag=True,
+        user_kernel_flag=False,
+        executable_flag=False,
+    )
+
+    # frame number = 101, flags 1100 ->present, read/write, kernel only
 
     pte3.construct_from_pte_data_block(
         pte_data_block=0x00066E
